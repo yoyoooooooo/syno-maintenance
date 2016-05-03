@@ -1,0 +1,24 @@
+# Common files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Common folders
+.fseventsd/
+.Trashes/
+?RECYCLE.BIN/
+@eaDir/
+?recycle/
+.Spotlight-V100/
+.TemporaryItems/
+
+# Documents specific folders
+/iTunes/
+
+# Photos specific folders
+Exports Lightroom/
+iCloud Photos/
+Sélection iPad/
+Sélection iPhone/
+Sélection iPod/
+test/

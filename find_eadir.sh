@@ -1,0 +1,1 @@
+find /volume1 -name "@eaDir" -type d -print | while read foldername ; do echo "$foldername" ; done
