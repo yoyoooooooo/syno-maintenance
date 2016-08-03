@@ -11,7 +11,7 @@ maxUSBId=2
 for i in `seq 1 $maxUSBId`
 do
 	destMountingPoint="/volumeUSB$i/usbshare"
-	
+
 	# Retrieve device corresponding to selected mounting point
 	dev=$( df | grep $destMountingPoint | awk '{ print $1 }' )
 	
@@ -28,10 +28,20 @@ do
 		# Delete log
 		rm $destBase$logFile
 		
+		error=0
+		
 		# Sync each folder
-		for d in $folders; do
-		rsync -avvh --stats --delete --delete-excluded --exclude-from '/volume1/documents/Scripts divers/exclude_nas_mirror.txt' --chmod=ugo=rwX --log-file=$destBase$logFile "$srcBase$d/" "$destBase$d"
+		for d in $folders; do	
+		rsync -avvh --stats --delete --delete-excluded --exclude-from '/volume1/syno-maintenance/exclude_nas_mirror.txt' --chmod=ugo=rwX --log-file=$destBase$logFile "$srcBase$d/" "$destBase$d"
+		((error=error+$?))
 		chmod 777 "$destBase$d"
 		done
+		
+		if [ $error -eq 0 ]
+		then
+			synodsmnotify admin "NAS mirroring successful!" "NAS mirroring successfully completed on external USB volume."
+		else
+		  	synodsmnotify admin "NAS mirroring failed" "NAS mirroring on external USB volume failed. Check logs."
+		fi
 	fi
 done

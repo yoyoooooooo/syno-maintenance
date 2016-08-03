@@ -41,7 +41,7 @@ do
 		
 		# Sync each folder
 		for folder in $folders; do
-		rsync -rltDvvhP --stats --delete --delete-excluded --exclude-from '/volume1/documents/Scripts divers/exclude_nas_backup_perso.txt' --chmod=ugo=rwX --log-file=$destBase$logFile --link-dest="$destBase$curdir/$folder" "$srcBase$folder/" "$destBase$date$tempSuffix/$folder"
+		rsync -rltDvvhP --stats --delete --delete-excluded --exclude-from '/volume1/syno-maintenance/exclude_nas_backup_perso.txt' --chmod=ugo=rwX --log-file=$destBase$logFile --link-dest="$destBase$curdir/$folder" "$srcBase$folder/" "$destBase$date$tempSuffix/$folder"
 		((error=error+$?))
 		done
 		
@@ -53,7 +53,7 @@ do
 			synodsmnotify admin "Backup successful!" "Backup of personal documents successfully completed on external USB volume."
 		else
 		  	mv "$destBase$date$tempSuffix" "$destBase$date$errorSuffix"
-		  	synodsmnotify admin "Backup Failed" "Backup of personal documents on external USB volume failed. Check logs."
+		  	synodsmnotify admin "Backup failed" "Backup of personal documents on external USB volume failed. Check logs."
 		fi
 	fi
 done
