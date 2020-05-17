@@ -4,7 +4,7 @@
 mirrorDiskUUID="0019d2dcf"
 
 srcBase="/volume1/"
-folders="documents photo video"
+folders="documents photo video backup"
 logFile="rsync.log"
 
 maxUSBId=2
