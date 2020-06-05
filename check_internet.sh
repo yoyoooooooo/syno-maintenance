@@ -83,12 +83,27 @@ then
 	echo "[I] Supposed to be connected to VPN. Continuing..."
 	synodsmnotify admin "VPN" "[I] Supposed to be connected to VPN. Continuing..."
 else
-	echo "[I] Not supposed to be connected to VPN. Exiting..."
-	synodsmnotify admin "VPN" "[I] Not supposed to be connected to VPN. Exiting..."
+	echo "[I] Not supposed to be connected to VPN. Continuing..."
+	synodsmnotify admin "VPN" "[I] Not supposed to be connected to VPN. Continuing..."
+	
+	# Make sure DownloadStation is stopped
+	if [[ $(synoservice -status | grep -F "[pkgctl-DownloadStation] is start") ]];
+	then
+		echo "[I] DownloadStation is running. Stopping..."
+		synodsmnotify admin "VPN" "[I] DownloadStation is running. Stopping..."
+		
+		synoservice -stop pkgctl-DownloadStation
+		echo "[I] DownloadStation has been stopped. Exiting..."
+		synodsmnotify admin "VPN" "[I] DownloadStation has been stopped. Exiting..."
+	else
+		echo "[I] DownloadStation is not running. Exiting..."
+		synodsmnotify admin "VPN" "[I] DownloadStation is not running. Exiting..."
+	fi
+	
 	exit 0
 fi
 
-ping -c30 www.orange.fr
+ping -c60 www.orange.fr
 if [ $? -ne 0 ]
 then
 	synodsmnotify admin "VPN" "NAS not connected to internet. Continuing..."
