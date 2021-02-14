@@ -7,7 +7,7 @@ srcBase="/volume1/"
 folders="documents photo video backup"
 logFile="rsync.log"
 
-maxUSBId=2
+maxUSBId=10
 for i in `seq 1 $maxUSBId`
 do
 	destMountingPoint="/volumeUSB$i/usbshare"
@@ -57,3 +57,4 @@ do
 		fi
 	fi
 done
+synodsmnotify admin "Backup end" "Backup task exited."

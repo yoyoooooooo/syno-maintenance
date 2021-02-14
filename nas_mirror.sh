@@ -7,7 +7,7 @@ srcBase="/volume1/"
 folders="backup documents music photo soft video"
 logFile="rsync.log"
 
-maxUSBId=2
+maxUSBId=10
 for i in `seq 1 $maxUSBId`
 do
 	destMountingPoint="/volumeUSB$i/usbshare"
@@ -45,3 +45,4 @@ do
 		fi
 	fi
 done
+synodsmnotify admin "Mirroring end" "Mirroring task exited."
